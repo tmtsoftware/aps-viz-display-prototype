@@ -1,0 +1,25 @@
+.segment {
+  cursor: pointer;
+}
+
+.segment:hover {
+  fill: #7192f5;
+}
+
+.mirror-container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  padding: 0;
+  padding-bottom: 95%;
+  background-color: #383b3e;
+  /*background-color: white;*/
+}
+
+.mirror-svg {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  left: 0;
+  top: 0;
+}
