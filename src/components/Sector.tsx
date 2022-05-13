@@ -14,7 +14,7 @@ type SectorProps = {
  * @constructor
  */
 export const Sector = ({sector,}: SectorProps): JSX.Element => {
-  const {posMap} = useAppContext()
+
   const xInc = (3 * Config.segmentRadius) / 2.0
   const yInc = Config.segmentRadius * Math.sin((60 * Math.PI) / 180.0)
 
@@ -29,43 +29,20 @@ export const Sector = ({sector,}: SectorProps): JSX.Element => {
     firstPos: number,
     offset = 0
   ): Array<JSX.Element> {
-    if (posMap) {
-      return [...Array(count).keys()].map((i) => {
-        const pos = `${sector}${firstPos + i}`
-        const segmentToM1Pos = posMap.get(pos)
-        const segmentData = {
-          position: '',
-          segmentId: '',
-          jiraKey: '',
-          jiraUri: '',
-          sector: 0,
-          segmentType: 0,
-          partNumber: '',
-          originalPartnerBlankAllocation: '',
-          itemLocation: '',
-          riskOfLoss: '',
-          components: '',
-          status: '',
-          workPackages: '',
-          acceptanceCertificates: '',
-          acceptanceDateBlank: '',
-          shippingAuthorizations: ''
-        }
-        const id = segmentToM1Pos ? segmentToM1Pos.maybeId || '' : ''
-        const key = pos
-        return (
-          <Segment
-            id={id}
-            pos={pos}
-            key={key}
-            x={xStart + xInc * row}
-            y={yStart + yInc * (2 - count + (i + offset / 2.0) * 2)}
-          />
-        )
-      })
-    } else {
-      return []
-    }
+
+    return [...Array(count).keys()].map((i) => {
+      const pos = `${sector}${firstPos + i}`
+      const key = pos
+      return (
+        <Segment
+          pos={pos}
+          key={key}
+          x={xStart + xInc * row}
+          y={yStart + yInc * (2 - count + (i + offset / 2.0) * 2)}
+        />
+      )
+    })
+
   }
 
   function segmentRows(): Array<JSX.Element> {

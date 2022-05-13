@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import {Config} from './Config'
+import {Data} from './Data'
 import {useAppContext} from "../AppContext"
 
 type SegmentEdgeProps = {
@@ -24,7 +25,7 @@ export const SegmentEdge = ({
                           pointX,
                           pointY
                         }: SegmentEdgeProps): JSX.Element => {
-  const {showSegmentIds, viewMode, mostRecentChange} = useAppContext()
+  const {showSegmentIds, caseNum} = useAppContext()
 
 
 // the input configuration will be a value for each edge.  For each edge there are two segments and an angle and a +- direction
@@ -43,9 +44,8 @@ const segmentEdge = Config.edgeData.filter(edge => (edge.plusSeg == cellNum || e
   function computeFactor() {
     if (segmentEdge.length == 1) {
 
-
       const edgeNum = segmentEdge[0].edge
-      const value = Config.edgeValues[edgeNum-1] // values index from 0, edgeNum index from 1
+      const value = Data.getEdgeValues(caseNum)[edgeNum-1] // values index from 0, edgeNum index from 1
 
       // now decide which to display depending on plus or minus edge
       if ((value > 0) && (!currentIndexPlusEdge())) {

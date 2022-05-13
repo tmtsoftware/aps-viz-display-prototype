@@ -19,42 +19,33 @@ type SegmentProps = {
  * @constructor
  */
 export const Segment = ({
-                          id,
                           pos,
                           x,
                           y
                         }: SegmentProps): JSX.Element => {
-  const {showSegmentIds, viewMode, mostRecentChange} = useAppContext()
+  const {caseNum, showSegmentIds} = useAppContext()
   const sector = pos.charAt(0)
   const fill = getFillColor()
   const labelXOffset = pos.length == 2 ? -4 : -6
-  const idStr = id ? id : ''
   const cellNum = Number(pos.substr(1)) + (82 * (pos.charCodeAt(0) - 65))
   const sectorNum = pos.charCodeAt(0) - 65
-  const label = showSegmentIds ? idStr.substr(3) : cellNum
-  const label2 = showSegmentIds ? idStr.substr(3) : pos
-  const fontSize = showSegmentIds ? 5 : 6
+  const label = showSegmentIds ? '' : cellNum
+  const label2 = pos
+  const fontSize = 6
 
   const [open, setOpen] = useState<boolean>(false)
 
 
 
   function getFillColor(): string | undefined {
-    let c = id ? Config.sectorColors.get(sector) : Config.sectorEmptyColors.get(sector)
+    let c = Config.sectorEmptyColors.get(sector)
     return c ? c : Config.undefinedColor
   }
 
-  function openDialog() {
-    setOpen(true)
-  }
-
-  function closeDialog() {
-    setOpen(false)
-  }
 
   // Pop up a modal dialog on mouse press
   function mousePressed() {
-    openDialog()
+    // don't do anything yet
   }
 
   // Tool tip to display over a segment

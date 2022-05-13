@@ -1,8 +1,8 @@
 import React, {ChangeEvent, useEffect, useState} from 'react'
-import {DatePicker, Form, Input, Layout, Menu, Modal, Popconfirm, Progress, Select, Upload} from "antd";
+import {DatePicker, Form, Input, Layout, Menu, Modal, Popconfirm, Progress, Select, Dropdown, message, Space} from "antd";
 import {MenuInfo, SelectInfo} from 'rc-menu/lib/interface';
-import {SegmentData, SegmentToM1Pos} from "./SegmentData";
 import SubMenu from "antd/es/menu/SubMenu";
+import { DownOutlined } from '@ant-design/icons';
 import { format } from 'date-fns'
 
 import moment from "moment";
@@ -13,17 +13,11 @@ const {Sider} = Layout;
 
 export const Sidebar = (): JSX.Element => {
 
-  const {updateDisplay, setViewMode, setShowSegmentIds, setShowSpares, auth, authEnabled, posMap, mostRecentChange} = useAppContext()
+  const {setShowSegmentIds, setCaseNum} = useAppContext()
 
 
 
-  function isAuthenticated(): boolean {
-    if (authEnabled) {
-      if (auth)
-        return (auth.isAuthenticated() || false)
-      return false
-    } else return true
-  }
+
 
 
 
@@ -31,9 +25,6 @@ export const Sidebar = (): JSX.Element => {
     switch (info.key) {
       case 'hideSegmentIds':
         setShowSegmentIds(true)
-        break
-      case 'showSpares':
-        setShowSpares(true)
         break
     }
   }
@@ -43,12 +34,31 @@ export const Sidebar = (): JSX.Element => {
       case 'hideSegmentIds':
         setShowSegmentIds(false)
         break
-      case 'showSpares':
-        setShowSpares(false)
-        break
     }
   }
 
+ function caseMenuOptionSelected(info: SelectInfo) {
+    switch (info.key) {
+      case 'loadCase1':
+        setCaseNum(1)
+        break
+      case 'loadCase2':
+        setCaseNum(2)
+        break
+      case 'loadCase3':
+        setCaseNum(3)
+        break
+      case 'loadCase4':
+        setCaseNum(4)
+        break
+      case 'loadCase5':
+        setCaseNum(5)
+        break
+      case 'loadCase6':
+        setCaseNum(6)
+        break
+    }
+  }
 
 
   interface SegmentConfig {
@@ -67,6 +77,11 @@ export const Sidebar = (): JSX.Element => {
 
 
 
+
+
+
+
+
   return (
     <Sider>
       <Menu
@@ -78,13 +93,59 @@ export const Sidebar = (): JSX.Element => {
         mode="inline">
         <SubMenu key="view" title="View">
           <Menu.Item key="hideSegmentIds">
-            Hide Segment IDs
+            Hide Cell Numbers
           </Menu.Item>
-          <Menu.Item key="showSpares">
+          <Menu.Item key="zoom">
             Zoom
           </Menu.Item>
         </SubMenu>
       </Menu>
+
+      <Menu
+        multiple={false}
+        theme="dark"
+        defaultOpenKeys={['view']}
+        onSelect={caseMenuOptionSelected}
+        mode="inline">
+        <SubMenu key="view" title="Edge Data Options">
+          <Menu.Item key="loadCase1">
+            Raised Cluster
+          </Menu.Item>
+          <Menu.Item key="loadCase2">
+             3 Raised, 3 Lowered
+           </Menu.Item>
+         <Menu.Item key="loadCase3">
+            Left-Right Gradient
+          </Menu.Item>
+         <Menu.Item key="loadCase4">
+            Cone Gradient
+          </Menu.Item>
+         <Menu.Item key="loadCase5">
+            Rings 9,10 Lowered
+          </Menu.Item>
+         <Menu.Item key="loadCase6">
+            Three color mode
+          </Menu.Item>
+        </SubMenu>
+      </Menu>
+
+      <Menu
+        multiple={false}
+        theme="dark"
+        defaultOpenKeys={['view']}
+        onSelect={caseMenuOptionSelected}
+        mode="inline">
+        <SubMenu key="view" title="Display Type">
+          <Menu.Item key="key2">
+            Ellithorpe Vector
+          </Menu.Item>
+          <Menu.Item key="key2">
+            TBD
+          </Menu.Item>
+        </SubMenu>
+      </Menu>
+
     </Sider>
+
   )
 }

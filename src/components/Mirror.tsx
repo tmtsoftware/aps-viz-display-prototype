@@ -8,10 +8,10 @@ import {useAppContext} from "../AppContext"
  * Represents the TMT mirror
  */
 export const Mirror = (): JSX.Element => {
-  const {showSpares, posMap, mostRecentChange} = useAppContext()
-  console.log("got to 2a")
 
-    const sectors = showSpares ? ['G'] : ['A', 'B', 'C', 'D', 'E', 'F']
+
+
+    const sectors = ['A', 'B', 'C', 'D', 'E', 'F']
     const d = Config.mirrorDiameter
 
 
