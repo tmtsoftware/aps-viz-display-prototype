@@ -4,6 +4,7 @@ import {MenuInfo, SelectInfo} from 'rc-menu/lib/interface';
 import SubMenu from "antd/es/menu/SubMenu";
 import { DownOutlined } from '@ant-design/icons';
 import { format } from 'date-fns'
+import {Config} from './Config'
 
 import moment from "moment";
 import ValueType = WebAssembly.ValueType;
@@ -13,11 +14,7 @@ const {Sider} = Layout;
 
 export const Sidebar = (): JSX.Element => {
 
-  const {setShowSegmentIds, setCaseNum} = useAppContext()
-
-
-
-
+  const {setShowSegmentIds, setCaseNum, setViewSize, setViewX, setViewY} = useAppContext()
 
 
 
@@ -25,6 +22,11 @@ export const Sidebar = (): JSX.Element => {
     switch (info.key) {
       case 'hideSegmentIds':
         setShowSegmentIds(true)
+        break
+      case 'zoom':
+        setViewX(0)
+        setViewY(0)
+        setViewSize(Config.mirrorDiameter)
         break
     }
   }
@@ -34,6 +36,11 @@ export const Sidebar = (): JSX.Element => {
       case 'hideSegmentIds':
         setShowSegmentIds(false)
         break
+      case 'zoom':
+        setViewX(0)
+        setViewY(0)
+        setViewSize(Config.mirrorDiameter)
+
     }
   }
 
@@ -96,7 +103,7 @@ export const Sidebar = (): JSX.Element => {
             Hide Cell Numbers
           </Menu.Item>
           <Menu.Item key="zoom">
-            Zoom
+            Reset Zoom
           </Menu.Item>
         </SubMenu>
       </Menu>

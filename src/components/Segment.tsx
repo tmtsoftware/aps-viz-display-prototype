@@ -23,7 +23,7 @@ export const Segment = ({
                           x,
                           y
                         }: SegmentProps): JSX.Element => {
-  const {caseNum, showSegmentIds} = useAppContext()
+  const {caseNum, showSegmentIds, viewSize, setViewSize, setViewX, setViewY, viewX, viewY} = useAppContext()
   const sector = pos.charAt(0)
   const fill = getFillColor()
   const labelXOffset = pos.length == 2 ? -4 : -6
@@ -44,8 +44,40 @@ export const Segment = ({
 
 
   // Pop up a modal dialog on mouse press
-  function mousePressed() {
-    // don't do anything yet
+  function mousePressed(event) {
+
+    // use nativeEvent X and Y, scaled by viewSize relative to Mirror Diameter
+    console.log(event.nativeEvent.clientX)
+    console.log("viewSize = " + viewSize)
+
+    var e = document.getElementById("svgImage");
+    var dim = e.getBoundingClientRect();
+    var x = event.nativeEvent.clientX - dim.left;
+    var y = event.nativeEvent.clientY - dim.top;
+    console.log("x: "+x+" y:"+y);
+
+    const xfactor = viewSize/(dim.right - dim.left)
+    const yfactor = viewSize/(dim.bottom - dim.top + 70) // why we need to add 70 I don't know but it helps y offsetting
+
+    // lets find out the % x and y of the mouse click rather than actual values
+    const xScaled = x * xfactor;
+    const yScaled = y * yfactor;
+
+    // now convert to what the coordinate will be in our new viewSize
+
+    // when we click we want the place we clicked to remain constant throughout the zoom.
+
+    const newSize = viewSize/2;
+
+    //console.log("clientX = " + clientX)
+    //console.log("xscaled = " + xScaled)
+
+
+    setViewX(xScaled/2 + viewX)
+    setViewY(yScaled/2 + viewY)
+
+    // use pos to get the position in the view
+    setViewSize(newSize)
   }
 
   // Tool tip to display over a segment

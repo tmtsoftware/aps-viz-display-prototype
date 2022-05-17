@@ -7,6 +7,7 @@ import 'antd/dist/antd.css'
 import {Sidebar} from "./components/Sidebar";
 import {format} from "date-fns";
 import {appContext, AppContextState} from './AppContext'
+import {Config} from './components/Config'
 
 const {Content} = Layout
 
@@ -15,14 +16,23 @@ const App = (): JSX.Element => {
 
   const [caseNum, setCaseNum] = useState<number>(0)
 
+  const [viewSize, setViewSize] = useState<number>(Config.mirrorDiameter)
 
+  const [viewX, setViewX] = useState<number>(0)
+  const [viewY, setViewY] = useState<number>(0)
 
   const appContextValues: AppContextState = {
 
     showSegmentIds,
     setShowSegmentIds,
     caseNum,
-    setCaseNum
+    setCaseNum,
+    viewSize,
+    setViewSize,
+    viewX,
+    viewY,
+    setViewX,
+    setViewY
   }
 
 

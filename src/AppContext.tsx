@@ -1,5 +1,5 @@
 import React, {createContext, useContext} from "react"
-
+import {Config} from './components/Config'
 
 
 // Application context: Holds values and functions that are shared by different components in the app
@@ -13,6 +13,14 @@ export type AppContextState = {
   // data case
   caseNum: number
   setCaseNum: (value: number) => void
+
+  // view size
+  viewSize: number
+  setViewSize: (value: number) => void
+  viewX: number
+  viewY: number
+  setViewX: (value: number) => void
+  setViewY: (value: number) => void
 }
 
 const appContextDefaultValue: AppContextState = {
@@ -21,7 +29,15 @@ const appContextDefaultValue: AppContextState = {
   setShowSegmentIds: (_: boolean) => {},
 
   caseNum: 0,
-  setCaseNum: (_: number) => {}
+  setCaseNum: (_: number) => {},
+
+  viewSize: Config.mirrorDiameter,
+  setViewSize: (_: number) => {},
+  viewX: 0,
+  viewY: 0,
+  setViewX: (_: number) => {},
+  setViewY: (_: number) => {}
+
 }
 
 export const appContext = createContext<AppContextState>(appContextDefaultValue)

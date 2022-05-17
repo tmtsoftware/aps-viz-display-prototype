@@ -10,16 +10,15 @@ import {useAppContext} from "../AppContext"
 export const Mirror = (): JSX.Element => {
 
 
+    const {setShowSegmentIds, setCaseNum, viewSize, setViewSize, viewX, viewY} = useAppContext()
 
     const sectors = ['A', 'B', 'C', 'D', 'E', 'F']
-    const d = Config.mirrorDiameter
-
+    const d = viewSize
+    const x = viewX
+    const y = viewY
 
 
 /*
-const svgImage = document.getElementById("svgImage");
-const svgContainer = document.getElementById("svgContainer");
-
 var viewBox = {x:0,y:0,w:svgImage.clientWidth,h:svgImage.clientHeight};
 svgImage.setAttribute('viewBox', `${viewBox.x} ${viewBox.y} ${viewBox.w} ${viewBox.h}`);
 const svgSize = {w:svgImage.clientWidth,h:svgImage.clientHeight};
@@ -83,10 +82,10 @@ svgContainer.onmouseleave = function(e){
 
 
     return (
-      <div id="svgContainer" className='mirror-container'>
+      <div id="svgContainer" className='mirror-container' >
         <svg id="svgImage"
           className='mirror-svg'
-          viewBox={`0 0 ${d} ${d}`}
+          viewBox={`${x} ${y} ${d} ${d}`}
           preserveAspectRatio='xMidYMin slice'>
           <g className='sectors'>
 
