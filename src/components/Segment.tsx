@@ -1,7 +1,8 @@
 import React, {useState} from 'react'
 import {Config} from './Config'
 import {useAppContext} from "../AppContext"
-import {SegmentEdge} from './SegmentEdge'
+import {EdgeVector} from './EdgeVector'
+import {EdgeTriangle} from './EdgeTriangle'
 
 type SegmentProps = {
   id?: string
@@ -23,7 +24,7 @@ export const Segment = ({
                           x,
                           y
                         }: SegmentProps): JSX.Element => {
-  const {caseNum, showSegmentIds, viewSize, setViewSize, setViewX, setViewY, viewX, viewY} = useAppContext()
+  const {caseNum, showSegmentIds, viewSize, setViewSize, setViewX, setViewY, viewX, viewY, display, showSectorColors} = useAppContext()
   const sector = pos.charAt(0)
   const fill = getFillColor()
   const labelXOffset = pos.length == 2 ? -4 : -6
@@ -39,7 +40,7 @@ export const Segment = ({
 
   function getFillColor(): string | undefined {
     let c = Config.sectorEmptyColors.get(sector)
-    return c ? c : Config.undefinedColor
+    return (c && showSectorColors) ? c : Config.undefinedColor
   }
 
 
@@ -86,19 +87,42 @@ export const Segment = ({
   }
 
 
-
-  function segmentEdges(
+  // TODO: this is where we can turn the display off by returning empty
+  function edgeVectors(
   ): Array<JSX.Element> {
 
+      if (display != 1) return []
+      else
       return Config.edgePoints.map((point) => {
         return (
-          <SegmentEdge
+          <EdgeVector
             key={'A' + point.index}
             index={point.index}
             cellNum={cellNum}
             sectorNum={sectorNum}
             pointX={point.x}
             pointY={point.y}
+          />
+        )
+      })
+  }
+
+  // TODO: this is where we can turn the display off by returning empty
+  function edgeTriangles(
+  ): Array<JSX.Element> {
+      if (display != 2) return []
+      else
+      return Config.segmentPointsArray.map((point) => {
+        return (
+          <EdgeTriangle
+            key={'A' + point.index}
+            index={point.index}
+            cellNum={cellNum}
+            sectorNum={sectorNum}
+            edgepoint1X={point.p1x}
+            edgepoint1Y={point.p1y}
+            edgepoint2X={point.p2x}
+            edgepoint2Y={point.p2y}
           />
         )
       })
@@ -122,7 +146,8 @@ export const Segment = ({
         points={Config.segmentPoints}
       />
 
-      {segmentEdges()}
+      {edgeVectors()}
+      {edgeTriangles()}
 
       <text
         x={labelXOffset}

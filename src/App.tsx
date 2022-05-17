@@ -13,6 +13,7 @@ const {Content} = Layout
 
 const App = (): JSX.Element => {
   const [showSegmentIds, setShowSegmentIds] = useState<boolean>(false)
+  const [showSectorColors, setShowSectorColors] = useState<boolean>(true)
 
   const [caseNum, setCaseNum] = useState<number>(0)
 
@@ -21,10 +22,14 @@ const App = (): JSX.Element => {
   const [viewX, setViewX] = useState<number>(0)
   const [viewY, setViewY] = useState<number>(0)
 
+  const [display, setDisplay] = useState<number>(0)
+
   const appContextValues: AppContextState = {
 
     showSegmentIds,
     setShowSegmentIds,
+    showSectorColors,
+    setShowSectorColors,
     caseNum,
     setCaseNum,
     viewSize,
@@ -32,7 +37,9 @@ const App = (): JSX.Element => {
     viewX,
     viewY,
     setViewX,
-    setViewY
+    setViewY,
+    display,
+    setDisplay
   }
 
 

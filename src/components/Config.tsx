@@ -20,6 +20,18 @@ export class Config {
     })
     .join(' ')
 
+  static segmentPointsArray = [...Array(6).keys()]
+    .map((i) => {
+      const p1x = Config.segmentRadius * Math.cos((i * 60 * Math.PI) / 180.0)
+      const p1y = Config.segmentRadius * Math.sin((i * 60 * Math.PI) / 180.0)
+      const index2 = (i + 1) % 6
+      const p2x = Config.segmentRadius * Math.cos((index2 * 60 * Math.PI) / 180.0)
+      const p2y = Config.segmentRadius * Math.sin((index2 * 60 * Math.PI) / 180.0)
+
+      return {index: i, p1x: p1x, p1y: p1y, p2x: p2x, p2y: p2y}
+    })
+
+
   // Calculated a point midway between hexagon verticies
   static edgePoints = [...Array(6).keys()]
     .map((i) => {

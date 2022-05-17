@@ -14,7 +14,7 @@ const {Sider} = Layout;
 
 export const Sidebar = (): JSX.Element => {
 
-  const {setShowSegmentIds, setCaseNum, setViewSize, setViewX, setViewY} = useAppContext()
+  const {setShowSegmentIds, setCaseNum, setViewSize, setViewX, setViewY, display, setDisplay, setShowSectorColors} = useAppContext()
 
 
 
@@ -28,6 +28,10 @@ export const Sidebar = (): JSX.Element => {
         setViewY(0)
         setViewSize(Config.mirrorDiameter)
         break
+      case 'hideSectorColors':
+        setShowSectorColors(false)
+        break
+
     }
   }
 
@@ -35,6 +39,9 @@ export const Sidebar = (): JSX.Element => {
     switch (info.key) {
       case 'hideSegmentIds':
         setShowSegmentIds(false)
+        break
+      case 'hideSectorColors':
+        setShowSectorColors(true)
         break
       case 'zoom':
         setViewX(0)
@@ -63,6 +70,20 @@ export const Sidebar = (): JSX.Element => {
         break
       case 'loadCase6':
         setCaseNum(6)
+        break
+      case 'loadCase7':
+        setCaseNum(7)
+        break
+    }
+  }
+
+ function displayMenuOptionSelected(info: SelectInfo) {
+    switch (info.key) {
+      case 'edgeVectors':
+        setDisplay(1)
+        break
+      case 'edgeTriangles':
+        setDisplay(2)
         break
     }
   }
@@ -102,8 +123,11 @@ export const Sidebar = (): JSX.Element => {
           <Menu.Item key="hideSegmentIds">
             Hide Cell Numbers
           </Menu.Item>
+          <Menu.Item key="hideSectorColors">
+            Hide Sector Colors
+          </Menu.Item>
           <Menu.Item key="zoom">
-            Reset Zoom
+            Zoom Out
           </Menu.Item>
         </SubMenu>
       </Menu>
@@ -133,6 +157,9 @@ export const Sidebar = (): JSX.Element => {
          <Menu.Item key="loadCase6">
             Three color mode
           </Menu.Item>
+         <Menu.Item key="loadCase7">
+            Bad Edges
+          </Menu.Item>
         </SubMenu>
       </Menu>
 
@@ -140,14 +167,14 @@ export const Sidebar = (): JSX.Element => {
         multiple={false}
         theme="dark"
         defaultOpenKeys={['view']}
-        onSelect={caseMenuOptionSelected}
+        onSelect={displayMenuOptionSelected}
         mode="inline">
         <SubMenu key="view" title="Display Type">
-          <Menu.Item key="key2">
-            Ellithorpe Vector
+          <Menu.Item key="edgeVectors">
+            Edge Vectors
           </Menu.Item>
-          <Menu.Item key="key2">
-            TBD
+          <Menu.Item key="edgeTriangles">
+            Edge Triangles
           </Menu.Item>
         </SubMenu>
       </Menu>

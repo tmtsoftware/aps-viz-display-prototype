@@ -3,7 +3,7 @@ import {Config} from './Config'
 import {Data} from './Data'
 import {useAppContext} from "../AppContext"
 
-type SegmentEdgeProps = {
+type EdgeVectorProps = {
   index: number
   cellNum: number
   sectorNum: number
@@ -12,19 +12,19 @@ type SegmentEdgeProps = {
 }
 
 /**
- * Represents edge line representations
+ * Represents edge line representation
 
  * @param x x offset of segment in the display
  * @param y y offset of segment in the display
  * @constructor
  */
-export const SegmentEdge = ({
+export const EdgeVector = ({
                           index,
                           cellNum,
                           sectorNum,
                           pointX,
                           pointY
-                        }: SegmentEdgeProps): JSX.Element => {
+                        }: EdgeVectorProps): JSX.Element => {
   const {showSegmentIds, caseNum} = useAppContext()
 
 
@@ -46,6 +46,7 @@ const segmentEdge = Config.edgeData.filter(edge => (edge.plusSeg == cellNum || e
 
       const edgeNum = segmentEdge[0].edge
       const value = Data.getEdgeValues(caseNum)[edgeNum-1] // values index from 0, edgeNum index from 1
+      console.log(value)
 
       // now decide which to display depending on plus or minus edge
       if ((value > 0) && (!currentIndexPlusEdge())) {

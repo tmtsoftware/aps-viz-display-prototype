@@ -10,6 +10,9 @@ export type AppContextState = {
   showSegmentIds: boolean
   setShowSegmentIds: (value: boolean) => void
 
+  showSectorColors: boolean
+  setShowSectorColors: (value: boolean) => void
+
   // data case
   caseNum: number
   setCaseNum: (value: number) => void
@@ -21,12 +24,19 @@ export type AppContextState = {
   viewY: number
   setViewX: (value: number) => void
   setViewY: (value: number) => void
+
+  // display type
+  display: number
+  setDisplay: (value: number) => void
 }
 
 const appContextDefaultValue: AppContextState = {
 
   showSegmentIds: false,
   setShowSegmentIds: (_: boolean) => {},
+
+  showSectorColors: true,
+  setShowSectorColors: (_: boolean) => {},
 
   caseNum: 0,
   setCaseNum: (_: number) => {},
@@ -36,7 +46,10 @@ const appContextDefaultValue: AppContextState = {
   viewX: 0,
   viewY: 0,
   setViewX: (_: number) => {},
-  setViewY: (_: number) => {}
+  setViewY: (_: number) => {},
+
+  display: 0,
+  setDisplay: (_: number) => {}
 
 }
 
