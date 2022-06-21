@@ -14,7 +14,7 @@ const {Sider} = Layout;
 
 export const Sidebar = (): JSX.Element => {
 
-  const {setShowSegmentIds, setCaseNum, setViewSize, setViewX, setViewY, display, setDisplay, setShowSectorColors} = useAppContext()
+  const {setShowSegmentIds, setCaseNum, setViewSize, setViewX, setViewY, display, setDisplay, edgeDisplay, setEdgeDisplay, segmentDisplay, setSegmentDisplay, setShowSectorColors} = useAppContext()
 
 
 
@@ -79,34 +79,36 @@ export const Sidebar = (): JSX.Element => {
 
  function displayMenuOptionSelected(info: SelectInfo) {
     switch (info.key) {
-      case 'edgeVectors':
+      case 'mirror':
         setDisplay(1)
         break
-      case 'edgeTriangles':
+      case 'segments':
         setDisplay(2)
         break
     }
   }
 
-
-  interface SegmentConfig {
-    position: string,
-    segmentId?: string
+ function edgeDisplayMenuOptionSelected(info: SelectInfo) {
+    switch (info.key) {
+      case 'edgeVectors':
+        setEdgeDisplay(1)
+        break
+      case 'edgeTriangles':
+        setEdgeDisplay(2)
+        break
+    }
   }
 
-  interface MirrorConfig {
-    date: string,
-    segments: Array<SegmentConfig>
+ function segmentDisplayMenuOptionSelected(info: SelectInfo) {
+    switch (info.key) {
+      case 'vectorFieldPlot':
+        setSegmentDisplay(1)
+        break
+      case 'surfacePlot':
+        setSegmentDisplay(2)
+        break
+    }
   }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -128,6 +130,22 @@ export const Sidebar = (): JSX.Element => {
           </Menu.Item>
           <Menu.Item key="zoom">
             Zoom Out
+          </Menu.Item>
+        </SubMenu>
+      </Menu>
+
+      <Menu
+        multiple={false}
+        theme="dark"
+        defaultOpenKeys={['view']}
+        onSelect={displayMenuOptionSelected}
+        mode="inline">
+        <SubMenu key="view" title="Display Type">
+          <Menu.Item key="mirror">
+            Primary Mirror
+          </Menu.Item>
+          <Menu.Item key="segments">
+            Individual Segments
           </Menu.Item>
         </SubMenu>
       </Menu>
@@ -167,14 +185,30 @@ export const Sidebar = (): JSX.Element => {
         multiple={false}
         theme="dark"
         defaultOpenKeys={['view']}
-        onSelect={displayMenuOptionSelected}
+        onSelect={edgeDisplayMenuOptionSelected}
         mode="inline">
-        <SubMenu key="view" title="Display Type">
+        <SubMenu key="view" title="Edge Data Display Type">
           <Menu.Item key="edgeVectors">
             Edge Vectors
           </Menu.Item>
           <Menu.Item key="edgeTriangles">
             Edge Triangles
+          </Menu.Item>
+        </SubMenu>
+      </Menu>
+
+      <Menu
+        multiple={false}
+        theme="dark"
+        defaultOpenKeys={['view']}
+        onSelect={segmentDisplayMenuOptionSelected}
+        mode="inline">
+        <SubMenu key="view" title="Segment Data Display Type">
+          <Menu.Item key="vectorFieldPlot">
+            Vector Field Plot
+          </Menu.Item>
+          <Menu.Item key="surfacePlot">
+            Surface Plot
           </Menu.Item>
         </SubMenu>
       </Menu>

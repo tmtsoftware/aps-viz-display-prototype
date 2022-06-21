@@ -28,6 +28,13 @@ export type AppContextState = {
   // display type
   display: number
   setDisplay: (value: number) => void
+  // edge display type
+  edgeDisplay: number
+  setEdgeDisplay: (value: number) => void
+
+  // segment display type
+  segmentDisplay: number
+  setSegmentDisplay: (value: number) => void
 }
 
 const appContextDefaultValue: AppContextState = {
@@ -49,7 +56,11 @@ const appContextDefaultValue: AppContextState = {
   setViewY: (_: number) => {},
 
   display: 0,
-  setDisplay: (_: number) => {}
+  setDisplay: (_: number) => {},
+  edgeDisplay: 0,
+  setEdgeDisplay: (_: number) => {},
+  segmentDisplay: 0,
+  setSegmentDisplay: (_: number) => {}
 
 }
 

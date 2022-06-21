@@ -2,6 +2,7 @@ import React, {useContext, useEffect, useState} from 'react'
 import './App.css'
 import {Topbar} from './components/Topbar'
 import {Mirror} from './components/Mirror'
+import {SegmentView} from './components/SegmentView'
 import {Layout} from "antd"
 import 'antd/dist/antd.css'
 import {Sidebar} from "./components/Sidebar";
@@ -24,6 +25,9 @@ const App = (): JSX.Element => {
 
   const [display, setDisplay] = useState<number>(0)
 
+  const [edgeDisplay, setEdgeDisplay] = useState<number>(0)
+  const [segmentDisplay, setSegmentDisplay] = useState<number>(0)
+
   const appContextValues: AppContextState = {
 
     showSegmentIds,
@@ -39,7 +43,11 @@ const App = (): JSX.Element => {
     setViewX,
     setViewY,
     display,
-    setDisplay
+    setDisplay,
+    edgeDisplay,
+    setEdgeDisplay,
+    segmentDisplay,
+    setSegmentDisplay
   }
 
 
@@ -51,7 +59,12 @@ const App = (): JSX.Element => {
           <Layout>
             <Sidebar/>
             <Content>
-              <Mirror/>
+              {display==1 && (
+                <Mirror/>
+              )}
+              {display==2 && (
+                <SegmentView/>
+              )}
             </Content>
           </Layout>
         </Layout>

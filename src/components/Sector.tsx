@@ -15,8 +15,8 @@ type SectorProps = {
  */
 export const Sector = ({sector,}: SectorProps): JSX.Element => {
 
-  const xInc = (3 * Config.segmentRadius) / 2.0
-  const yInc = Config.segmentRadius * Math.sin((60 * Math.PI) / 180.0)
+  const xInc = (3 * Config.segmentRadiusMirrorDisplay) / 2.0
+  const yInc = Config.segmentRadiusMirrorDisplay * Math.sin((60 * Math.PI) / 180.0)
 
   const xStart = Config.xOrigin + xInc * 2
   const yStart = Config.yOrigin - yInc * 2

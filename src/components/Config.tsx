@@ -3,43 +3,52 @@
  */
 export class Config {
   // Radius of a single segment
-  static segmentRadius = 12
+  static segmentRadiusMirrorDisplay = 12
+  static segmentRadiusSegmentDisplay = 64
 
-  static mirrorDiameter = 23 * Config.segmentRadius * 2
+  static mirrorDiameter = 23 * Config.segmentRadiusMirrorDisplay * 2
 
   // Center of the mirror
   static xOrigin = Config.mirrorDiameter / 2
-  static yOrigin = Config.mirrorDiameter / 2 - Config.segmentRadius
+  static yOrigin = Config.mirrorDiameter / 2 - Config.segmentRadiusMirrorDisplay
 
   // Calculated points for a hexagon with the given radius
   static segmentPoints = [...Array(6).keys()]
     .map((i) => {
-      const px = Config.segmentRadius * Math.cos((i * 60 * Math.PI) / 180.0)
-      const py = Config.segmentRadius * Math.sin((i * 60 * Math.PI) / 180.0)
+      const px = Config.segmentRadiusMirrorDisplay * Math.cos((i * 60 * Math.PI) / 180.0)
+      const py = Config.segmentRadiusMirrorDisplay * Math.sin((i * 60 * Math.PI) / 180.0)
       return `${px},${py}`
     })
     .join(' ')
 
   static segmentPointsArray = [...Array(6).keys()]
     .map((i) => {
-      const p1x = Config.segmentRadius * Math.cos((i * 60 * Math.PI) / 180.0)
-      const p1y = Config.segmentRadius * Math.sin((i * 60 * Math.PI) / 180.0)
+      const p1x = Config.segmentRadiusMirrorDisplay * Math.cos((i * 60 * Math.PI) / 180.0)
+      const p1y = Config.segmentRadiusMirrorDisplay * Math.sin((i * 60 * Math.PI) / 180.0)
       const index2 = (i + 1) % 6
-      const p2x = Config.segmentRadius * Math.cos((index2 * 60 * Math.PI) / 180.0)
-      const p2y = Config.segmentRadius * Math.sin((index2 * 60 * Math.PI) / 180.0)
+      const p2x = Config.segmentRadiusMirrorDisplay * Math.cos((index2 * 60 * Math.PI) / 180.0)
+      const p2y = Config.segmentRadiusMirrorDisplay * Math.sin((index2 * 60 * Math.PI) / 180.0)
 
       return {index: i, p1x: p1x, p1y: p1y, p2x: p2x, p2y: p2y}
     })
+
+  static segmentDisplayPoints = [...Array(6).keys()]
+    .map((i) => {
+      const px = Config.segmentRadiusSegmentDisplay * Math.cos((i * 60 * Math.PI) / 180.0)
+      const py = Config.segmentRadiusSegmentDisplay * Math.sin((i * 60 * Math.PI) / 180.0)
+      return `${px},${py}`
+    })
+    .join(' ')
 
 
   // Calculated a point midway between hexagon verticies
   static edgePoints = [...Array(6).keys()]
     .map((i) => {
-      const p1x = Config.segmentRadius * Math.cos((i * 60 * Math.PI) / 180.0)
-      const p1y = Config.segmentRadius * Math.sin((i * 60 * Math.PI) / 180.0)
+      const p1x = Config.segmentRadiusMirrorDisplay * Math.cos((i * 60 * Math.PI) / 180.0)
+      const p1y = Config.segmentRadiusMirrorDisplay * Math.sin((i * 60 * Math.PI) / 180.0)
       const nextI = (i+1) % 6
-      const p2x = Config.segmentRadius * Math.cos((nextI * 60 * Math.PI) / 180.0)
-      const p2y = Config.segmentRadius * Math.sin((nextI * 60 * Math.PI) / 180.0)
+      const p2x = Config.segmentRadiusMirrorDisplay * Math.cos((nextI * 60 * Math.PI) / 180.0)
+      const p2y = Config.segmentRadiusMirrorDisplay * Math.sin((nextI * 60 * Math.PI) / 180.0)
 
       console.log("index " + i + "," + " p1 " + p1x + "," + p1y + " p2 " + p2x + "," + p2y)
       return {index: i, x: (p1x - ((p1x - p2x)/2)), y: (p1y - ((p1y - p2y)/2))}
@@ -51,9 +60,9 @@ export class Config {
   static innerSegmentPoints = [...Array(6).keys()]
     .map((i) => {
       const px =
-        (Config.segmentRadius - 1) * Math.cos((i * 60 * Math.PI) / 180.0)
+        (Config.segmentRadiusMirrorDisplay - 1) * Math.cos((i * 60 * Math.PI) / 180.0)
       const py =
-        (Config.segmentRadius - 1) * Math.sin((i * 60 * Math.PI) / 180.0)
+        (Config.segmentRadiusMirrorDisplay - 1) * Math.sin((i * 60 * Math.PI) / 180.0)
       return `${px},${py}`
     })
     .join(' ')

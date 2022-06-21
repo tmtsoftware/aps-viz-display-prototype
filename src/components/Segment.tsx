@@ -24,7 +24,7 @@ export const Segment = ({
                           x,
                           y
                         }: SegmentProps): JSX.Element => {
-  const {caseNum, showSegmentIds, viewSize, setViewSize, setViewX, setViewY, viewX, viewY, display, showSectorColors} = useAppContext()
+  const {caseNum, showSegmentIds, viewSize, setViewSize, setViewX, setViewY, viewX, viewY, edgeDisplay, showSectorColors} = useAppContext()
   const sector = pos.charAt(0)
   const fill = getFillColor()
   const labelXOffset = pos.length == 2 ? -4 : -6
@@ -45,7 +45,7 @@ export const Segment = ({
 
 
   // Pop up a modal dialog on mouse press
-  function mousePressed(event) {
+  function mousePressed(event: MouseEvent<SVGTextElement, MouseEvent>) {
 
     // use nativeEvent X and Y, scaled by viewSize relative to Mirror Diameter
     console.log(event.nativeEvent.clientX)
@@ -70,6 +70,7 @@ export const Segment = ({
 
     const newSize = viewSize/2;
 
+
     //console.log("clientX = " + clientX)
     //console.log("xscaled = " + xScaled)
 
@@ -91,7 +92,7 @@ export const Segment = ({
   function edgeVectors(
   ): Array<JSX.Element> {
 
-      if (display != 1) return []
+      if (edgeDisplay != 1) return []
       else
       return Config.edgePoints.map((point) => {
         return (
@@ -110,7 +111,7 @@ export const Segment = ({
   // TODO: this is where we can turn the display off by returning empty
   function edgeTriangles(
   ): Array<JSX.Element> {
-      if (display != 2) return []
+      if (edgeDisplay != 2) return []
       else
       return Config.segmentPointsArray.map((point) => {
         return (
