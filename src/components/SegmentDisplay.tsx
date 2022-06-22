@@ -1,5 +1,6 @@
 import React, {useState} from 'react'
 import {Config} from './Config'
+import {WhData} from './WhData'
 import {useAppContext} from "../AppContext"
 import {FieldVector} from './FieldVector'
 
@@ -42,13 +43,13 @@ export const SegmentDisplay = ({
 
       if (segmentDisplay != 1) return []
       else
-      return Config.segSubimages.map((point) => {
+      return WhData.offsetsCase1.map((offset) => {
         return (
           <FieldVector
-            startPointX={point.posX * segPositionScaleFactor}
-            startPointY={point.posY * segPositionScaleFactor}
-            endPointX="5"
-            endPointY="6"
+            startPointX={offset.posX * segPositionScaleFactor}
+            startPointY={offset.posY * segPositionScaleFactor}
+            endPointX={offset.offsetX * segPositionScaleFactor}
+            endPointY={offset.offsetY * segPositionScaleFactor}
           />
         )
       })

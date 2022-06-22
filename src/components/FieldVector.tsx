@@ -32,7 +32,7 @@ export const FieldVector = ({
 
 
 
-const radius = 1.5
+const radius = 1
 
 
   return (
@@ -49,9 +49,9 @@ const radius = 1.5
             x1={startPointX}
             y1={startPointY}
             x2={endPointX}
-            y2={endPointX}
+            y2={endPointY}
             stroke='black'
-            stroke-width='0.5' />
+            stroke-width='0.4' />
       </g>
 
   )
