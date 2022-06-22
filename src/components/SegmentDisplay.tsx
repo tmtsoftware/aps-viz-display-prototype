@@ -55,9 +55,9 @@ export const SegmentDisplay = ({
         return (
           <FieldVector
             startPointX={offset.posX * segPositionScaleFactor}
-            startPointY={offset.posY * segPositionScaleFactor}
+            startPointY={-offset.posY * segPositionScaleFactor}
             endPointX={offset.offsetX * segPositionScaleFactor}
-            endPointY={offset.offsetY * segPositionScaleFactor}
+            endPointY={-offset.offsetY * segPositionScaleFactor}
           />
         )
       })
