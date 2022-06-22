@@ -100,8 +100,8 @@ export class WhData {
     {subimage: 91, posX: 0.53700, posY: -0.10335, offsetX: 0.45337, offsetY: -0.08725},
 
   ]
-  
-  offsetsCase2 = [
+
+  static offsetsCase2 = [
   {subimage: 1, posX: 0.00000, posY: 0.00000, offsetX: 0.00000, offsetY: 0.00000},
     {subimage: 2, posX: 0.11933, posY: -0.00000, offsetX: 0.11933, offsetY: -0.01314},
     {subimage: 3, posX: 0.05967, posY: 0.10335, offsetX: 0.04829, offsetY: 0.09678},
@@ -194,7 +194,7 @@ export class WhData {
     {subimage: 90, posX: 0.47733, posY: -0.20669, offsetX: 0.50009, offsetY: -0.25925},
     {subimage: 91, posX: 0.53700, posY: -0.10335, offsetX: 0.54838, offsetY: -0.16248},
   ]
-  offsetsCase3 = [
+  static offsetsCase3 = [
     {subimage: 1, posX: 0.00000, posY: 0.00000, offsetX: 0.00000, offsetY: 0.00000},
     {subimage: 2, posX: 0.11933, posY: -0.00000, offsetX: 0.11933, offsetY: -0.01314},
     {subimage: 3, posX: 0.05967, posY: 0.10335, offsetX: 0.04829, offsetY: 0.09678},
@@ -287,7 +287,7 @@ export class WhData {
     {subimage: 90, posX: 0.47733, posY: -0.20669, offsetX: 0.50009, offsetY: -0.25925},
     {subimage: 91, posX: 0.53700, posY: -0.10335, offsetX: 0.54838, offsetY: -0.16248},
   ]
-  offsetsCase4 = [
+  static offsetsCase4 = [
     {subimage: 1, posX: 0.00000, posY: 0.00000, offsetX: 0.00000, offsetY: 0.09104},
     {subimage: 2, posX: 0.11933, posY: -0.00000, offsetX: 0.11933, offsetY: 0.08725},
     {subimage: 3, posX: 0.05967, posY: 0.10335, offsetX: 0.05638, offsetY: 0.18490},
@@ -380,7 +380,7 @@ export class WhData {
     {subimage: 90, posX: 0.47733, posY: -0.20669, offsetX: 0.52990, offsetY: -0.21048},
     {subimage: 91, posX: 0.53700, posY: -0.10335, offsetX: 0.56657, offsetY: -0.09766},
   ]
-  offsetsCase5 = [
+  static offsetsCase5 = [
     {subimage: 1, posX: 0.00000, posY: 0.00000, offsetX: 0.09104, offsetY: 0.00000},
     {subimage: 2, posX: 0.11933, posY: -0.00000, offsetX: 0.19899, offsetY: 0.00000},
     {subimage: 3, posX: 0.05967, posY: 0.10335, offsetX: 0.14502, offsetY: 0.10006},
@@ -473,7 +473,7 @@ export class WhData {
     {subimage: 90, posX: 0.47733, posY: -0.20669, offsetX: 0.37491, offsetY: -0.15413},
     {subimage: 91, posX: 0.53700, posY: -0.10335, offsetX: 0.39475, offsetY: -0.07378},
   ]
-  offsetsCase6 = [
+  static offsetsCase6 = [
     {subimage: 1, posX: 0.00000, posY: 0.00000, offsetX: 0.00000, offsetY: 0.00000},
     {subimage: 2, posX: 0.11933, posY: -0.00000, offsetX: 0.11933, offsetY: -0.00379},
     {subimage: 3, posX: 0.05967, posY: 0.10335, offsetX: 0.05638, offsetY: 0.10524},
@@ -566,7 +566,7 @@ export class WhData {
     {subimage: 90, posX: 0.47733, posY: -0.20669, offsetX: 0.52990, offsetY: -0.25600},
     {subimage: 91, posX: 0.53700, posY: -0.10335, offsetX: 0.56657, offsetY: -0.17732},
   ]
-  offsetsCase7 = [
+  static offsetsCase7 = [
     {subimage: 1, posX: 0.00000, posY: 0.00000, offsetX: 0.00000, offsetY: 0.00000},
     {subimage: 2, posX: 0.11933, posY: -0.00000, offsetX: 0.11554, offsetY: 0.00000},
     {subimage: 3, posX: 0.05967, posY: 0.10335, offsetX: 0.06156, offsetY: 0.10663},
@@ -659,7 +659,7 @@ export class WhData {
     {subimage: 90, posX: 0.47733, posY: -0.20669, offsetX: 0.42802, offsetY: -0.25925},
     {subimage: 91, posX: 0.53700, posY: -0.10335, offsetX: 0.46303, offsetY: -0.13291},
   ]
-  offsetsCase8 = [
+  static offsetsCase8 = [
     {subimage: 1, posX: 0.00000, posY: 0.00000, offsetX: 0.00000, offsetY: 0.00000},
     {subimage: 2, posX: 0.11933, posY: -0.00000, offsetX: 0.18731, offsetY: 0.00000},
     {subimage: 3, posX: 0.05967, posY: 0.10335, offsetX: 0.09365, offsetY: 0.16221},
@@ -752,30 +752,30 @@ export class WhData {
     {subimage: 90, posX: 0.47733, posY: -0.20669, offsetX: 0.46134, offsetY: -0.19977},
     {subimage: 91, posX: 0.53700, posY: -0.10335, offsetX: 0.48302, offsetY: -0.09296},
   ]
-  offsetsCase9 = [
-  
+  static offsetsCase9 = [
+
   ]
-  offsetsCase10 = [
-  
+  static offsetsCase10 = [
+
   ]
-  offsetsCase11 = [
-  
+  static offsetsCase11 = [
+
   ]
-  offsetsCase12 = [
-  
+  static offsetsCase12 = [
+
   ]
-  offsetsCase13 = [
-  
+  static offsetsCase13 = [
+
   ]
-  offsetsCase14 = [
-  
+  static offsetsCase14 = [
+
   ]
-  offsetsCase15 = [
-  
+  static offsetsCase15 = [
+
   ]
-  offsetsCase16 = [
-  
+  static offsetsCase16 = [
+
   ]
-  
+
 
 }

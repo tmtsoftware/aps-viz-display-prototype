@@ -26,7 +26,8 @@ const App = (): JSX.Element => {
   const [display, setDisplay] = useState<number>(0)
 
   const [edgeDisplay, setEdgeDisplay] = useState<number>(0)
-  const [segmentDisplay, setSegmentDisplay] = useState<number>(0)
+  const [showVectorFieldPlot, setShowVectorFieldPlot] = useState<boolean>(false)
+  const [showSurfacePlot, setShowSurfacePlot] = useState<boolean>(false)
 
   const appContextValues: AppContextState = {
 
@@ -46,8 +47,10 @@ const App = (): JSX.Element => {
     setDisplay,
     edgeDisplay,
     setEdgeDisplay,
-    segmentDisplay,
-    setSegmentDisplay
+    showVectorFieldPlot,
+    setShowVectorFieldPlot,
+    showSurfacePlot,
+    setShowSurfacePlot
   }
 
 

@@ -14,7 +14,8 @@ const {Sider} = Layout;
 
 export const Sidebar = (): JSX.Element => {
 
-  const {setShowSegmentIds, setCaseNum, setViewSize, setViewX, setViewY, display, setDisplay, edgeDisplay, setEdgeDisplay, segmentDisplay, setSegmentDisplay, setShowSectorColors} = useAppContext()
+  const {setShowSegmentIds, setCaseNum, setViewSize, setViewX, setViewY, display, setDisplay, edgeDisplay, setEdgeDisplay,
+  showVectorFieldPlot, setShowVectorFieldPlot, showSurfacePlot, setShowSurfacePlot, setShowSectorColors} = useAppContext()
 
 
 
@@ -102,10 +103,21 @@ export const Sidebar = (): JSX.Element => {
  function segmentDisplayMenuOptionSelected(info: SelectInfo) {
     switch (info.key) {
       case 'vectorFieldPlot':
-        setSegmentDisplay(1)
+        setShowVectorFieldPlot(true)
         break
       case 'surfacePlot':
-        setSegmentDisplay(2)
+        setShowSurfacePlot(true)
+        break
+    }
+  }
+
+ function segmentDisplayMenuOptionDeselected(info: SelectInfo) {
+    switch (info.key) {
+      case 'vectorFieldPlot':
+        setShowVectorFieldPlot(false)
+        break
+      case 'surfacePlot':
+        setShowSurfacePlot(false)
         break
     }
   }
@@ -198,10 +210,11 @@ export const Sidebar = (): JSX.Element => {
       </Menu>
 
       <Menu
-        multiple={false}
+        multiple={true}
         theme="dark"
         defaultOpenKeys={['view']}
         onSelect={segmentDisplayMenuOptionSelected}
+        onDeselect={segmentDisplayMenuOptionDeselected}
         mode="inline">
         <SubMenu key="view" title="Segment Data Display Type">
           <Menu.Item key="vectorFieldPlot">

@@ -33,8 +33,10 @@ export type AppContextState = {
   setEdgeDisplay: (value: number) => void
 
   // segment display type
-  segmentDisplay: number
-  setSegmentDisplay: (value: number) => void
+  showVectorFieldPlot: boolean
+  setShowVectorFieldPlot: (value: boolean) => void
+  showSurfacePlot: boolean
+  setShowSurfacePlot: (value: boolean) => void
 }
 
 const appContextDefaultValue: AppContextState = {
@@ -59,8 +61,11 @@ const appContextDefaultValue: AppContextState = {
   setDisplay: (_: number) => {},
   edgeDisplay: 0,
   setEdgeDisplay: (_: number) => {},
-  segmentDisplay: 0,
-  setSegmentDisplay: (_: number) => {}
+
+  showVectorFieldPlot: false,
+  setShowVectorFieldPlot: (_: boolean) => {},
+  showSurfacePlot: false,
+  setShowSurfacePlot: (_: boolean) => {}
 
 }
 

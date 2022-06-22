@@ -23,10 +23,11 @@ export const SegmentDisplay = ({
                           x,
                           y
                         }: SegmentDisplayProps): JSX.Element => {
-  const {caseNum, showSegmentIds, viewSize, setViewSize, setViewX, setViewY, viewX, viewY, edgeDisplay, segmentDisplay, showSectorColors} = useAppContext()
+  const {caseNum, showSegmentIds, viewSize, setViewSize, setViewX, setViewY, viewX, viewY, edgeDisplay, showVectorFieldPlot, showSurfacePlot, showSectorColors} = useAppContext()
 
   const labelXOffset = pos.length == 1 ? -4 : (pos.length == 2 ? -9 : -12)
 
+  const dataIndex = parseInt(pos)
 
   const label = showSegmentIds ? '' : pos
   const fontSize = 14
@@ -35,15 +36,22 @@ export const SegmentDisplay = ({
 
   const segPositionScaleFactor = 88.0
 
+  const offsetData = [
+  WhData.offsetsCase1, WhData.offsetsCase2, WhData.offsetsCase3, WhData.offsetsCase4,
+  WhData.offsetsCase5, WhData.offsetsCase6, WhData.offsetsCase7, WhData.offsetsCase8,
+  WhData.offsetsCase1, WhData.offsetsCase2, WhData.offsetsCase3, WhData.offsetsCase4,
+  WhData.offsetsCase5, WhData.offsetsCase6, WhData.offsetsCase7, WhData.offsetsCase8,
+  ]
+
 
   // TODO: edgePoints needs to be replaced by field vector set
 
   function vectorField(
   ): Array<JSX.Element> {
 
-      if (segmentDisplay != 1) return []
+      if (!showVectorFieldPlot) return []
       else
-      return WhData.offsetsCase1.map((offset) => {
+      return offsetData[dataIndex-1].map((offset) => {
         return (
           <FieldVector
             startPointX={offset.posX * segPositionScaleFactor}
@@ -57,7 +65,7 @@ export const SegmentDisplay = ({
 
 
 
-const fill = (segmentDisplay == 2) ? "url(#pattern" + pos + ")" : "white"
+const fill = (showSurfacePlot) ? "url(#pattern" + pos + ")" : "white"
 
 
   return (
