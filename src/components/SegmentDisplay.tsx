@@ -32,7 +32,7 @@ export const SegmentDisplay = ({
 
   const [open, setOpen] = useState<boolean>(false)
 
-
+  const segPositionScaleFactor = 88.0
 
 
   // TODO: edgePoints needs to be replaced by field vector set
@@ -42,13 +42,13 @@ export const SegmentDisplay = ({
 
       if (segmentDisplay != 1) return []
       else
-      return Config.edgePoints.map((point) => {
+      return Config.segSubimages.map((point) => {
         return (
           <FieldVector
-            startPointX="1"
-            startPointY="2"
-            endPointX="50"
-            endPointY="60"
+            startPointX={point.posX * segPositionScaleFactor}
+            startPointY={point.posY * segPositionScaleFactor}
+            endPointX="5"
+            endPointY="6"
           />
         )
       })
