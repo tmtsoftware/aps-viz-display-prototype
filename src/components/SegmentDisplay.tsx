@@ -1,8 +1,7 @@
 import React, {useState} from 'react'
 import {Config} from './Config'
 import {useAppContext} from "../AppContext"
-import {EdgeVector} from './EdgeVector'
-import {EdgeTriangle} from './EdgeTriangle'
+import {FieldVector} from './FieldVector'
 
 
 type SegmentDisplayProps = {
@@ -23,7 +22,7 @@ export const SegmentDisplay = ({
                           x,
                           y
                         }: SegmentDisplayProps): JSX.Element => {
-  const {caseNum, showSegmentIds, viewSize, setViewSize, setViewX, setViewY, viewX, viewY, edgeDisplay, showSectorColors} = useAppContext()
+  const {caseNum, showSegmentIds, viewSize, setViewSize, setViewX, setViewY, viewX, viewY, edgeDisplay, segmentDisplay, showSectorColors} = useAppContext()
 
   const labelXOffset = pos.length == 1 ? -4 : (pos.length == 2 ? -9 : -12)
 
@@ -36,36 +35,29 @@ export const SegmentDisplay = ({
 
 
 
+  // TODO: edgePoints needs to be replaced by field vector set
 
-
-
-
-
-  // TODO: this is where we can turn the display off by returning empty
-  /*
-  function edgeVectors(
+  function vectorField(
   ): Array<JSX.Element> {
 
-      if (edgeDisplay != 1) return []
+      if (segmentDisplay != 1) return []
       else
       return Config.edgePoints.map((point) => {
         return (
-          <EdgeVector
-            key={'A' + point.index}
-            index={point.index}
-            cellNum={cellNum}
-            sectorNum={sectorNum}
-            pointX={point.x}
-            pointY={point.y}
+          <FieldVector
+            startPointX="1"
+            startPointY="2"
+            endPointX="50"
+            endPointY="60"
           />
         )
       })
   }
-*/
 
 
-const fill = "url(#pattern" + pos + ")"
-console.log(fill)
+
+const fill = (segmentDisplay == 2) ? "url(#pattern" + pos + ")" : "white"
+
 
   return (
     <g
@@ -79,6 +71,8 @@ console.log(fill)
         points={Config.segmentDisplayPoints}
         fill={fill}
       />
+
+      {vectorField()}
 
       <text
         x={labelXOffset}
