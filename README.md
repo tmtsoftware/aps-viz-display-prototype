@@ -1,5 +1,14 @@
 # aps-viz-display-prototype
 This prototype is used to evaluate different visualization techniques for APS.
+The visualization techniques explored in this prototype are:
+* Edge heights display across all segments in M1
+  * Vector field plot
+  * Edge triangles 
+* Selected segments display (4 x 4 segments)
+  * Surface plots for each segment
+  * Vector field plots for each segment
+* Global surface plot (under development)
+  
 This prototype is written in React-js and Typescript.
 
 ## Prerequisites Required for Running App
