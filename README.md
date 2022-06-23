@@ -16,13 +16,15 @@ This prototype is written in React-js and Typescript.
 The latest version of [Node.js](https://nodejs.org/en/download/package-manager/) must be installed.
 
 ## Run the App in Local Environment
+1. Clone or download this repository to a local directory
+2. cd to the local directory
 
-Run following commands in the terminal.
+3. Run following commands in the terminal.
    ```
    npm install
    npm start
    ```
-Then, open http://localhost:8080 in a browser
+4. Open http://localhost:8080 in a browser
 
 
 ## How to Use the Project
