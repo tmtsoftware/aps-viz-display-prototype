@@ -39,8 +39,8 @@ export const SegmentDisplay = ({
   const offsetData = [
   WhData.offsetsCase1, WhData.offsetsCase2, WhData.offsetsCase3, WhData.offsetsCase4,
   WhData.offsetsCase5, WhData.offsetsCase6, WhData.offsetsCase7, WhData.offsetsCase8,
-  WhData.offsetsCase1, WhData.offsetsCase2, WhData.offsetsCase3, WhData.offsetsCase4,
-  WhData.offsetsCase5, WhData.offsetsCase6, WhData.offsetsCase7, WhData.offsetsCase8,
+  WhData.offsetsCase9, WhData.offsetsCase10, WhData.offsetsCase11, WhData.offsetsCase12,
+  WhData.offsetsCase13, WhData.offsetsCase14, WhData.offsetsCase15, WhData.offsetsCase16,
   ]
 
 
