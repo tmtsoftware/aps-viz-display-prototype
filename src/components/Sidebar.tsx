@@ -15,7 +15,9 @@ const {Sider} = Layout;
 export const Sidebar = (): JSX.Element => {
 
   const {setShowSegmentIds, setCaseNum, setViewSize, setViewX, setViewY, display, setDisplay, edgeDisplay, setEdgeDisplay,
-  showVectorFieldPlot, setShowVectorFieldPlot, showSurfacePlot, setShowSurfacePlot, setShowSectorColors} = useAppContext()
+  showVectorFieldPlot, setShowVectorFieldPlot, showSurfacePlot, setShowSurfacePlot, showWhCircles, setShowWhCircles, setShowSectorColors,
+  setShowBySegmentMaxWhValue, showBySegmentMaxWhValue, setShowSegmentTipTilts, showSegmentTipTilts} = useAppContext()
+
 
 
 
@@ -84,9 +86,12 @@ export const Sidebar = (): JSX.Element => {
         setDisplay(1)
         break
       case 'segments':
-        setDisplay(2)
-        break
-    }
+         setDisplay(2)
+         break
+       case 'singleSegment':
+          setDisplay(3)
+          break
+      }
   }
 
  function edgeDisplayMenuOptionSelected(info: SelectInfo) {
@@ -108,6 +113,9 @@ export const Sidebar = (): JSX.Element => {
       case 'surfacePlot':
         setShowSurfacePlot(true)
         break
+      case 'whCircles':
+        setShowWhCircles(true)
+        break
     }
   }
 
@@ -117,11 +125,35 @@ export const Sidebar = (): JSX.Element => {
         setShowVectorFieldPlot(false)
         break
       case 'surfacePlot':
-        setShowSurfacePlot(false)
+         setShowSurfacePlot(false)
+         break
+     case 'whCircles':
+        setShowWhCircles(false)
         break
     }
   }
 
+function m1DisplayMenuOptionSelected(info: SelectInfo) {
+    switch (info.key) {
+      case 'whMaxValues':
+        setShowBySegmentMaxWhValue(true)
+        break
+      case 'tiptiltDisplay':
+        setShowSegmentTipTilts(true)
+        break
+    }
+  }
+
+ function m1DisplayMenuOptionDeselected(info: SelectInfo) {
+    switch (info.key) {
+      case 'whMaxValues':
+        setShowBySegmentMaxWhValue(false)
+        break
+      case 'tiptiltDisplay':
+         setShowSegmentTipTilts(false)
+         break
+    }
+  }
 
 
   return (
@@ -157,9 +189,12 @@ export const Sidebar = (): JSX.Element => {
             Primary Mirror
           </Menu.Item>
           <Menu.Item key="segments">
-            Individual Segments
-          </Menu.Item>
-        </SubMenu>
+             Individual Segments
+           </Menu.Item>
+           <Menu.Item key="singleSegment">
+              Single Segment
+            </Menu.Item>
+          </SubMenu>
       </Menu>
 
       <Menu
@@ -221,8 +256,28 @@ export const Sidebar = (): JSX.Element => {
             Vector Field Plot
           </Menu.Item>
           <Menu.Item key="surfacePlot">
-            Surface Plot
+             Surface Plot
+           </Menu.Item>
+         <Menu.Item key="whCircles">
+            Warping Harness Positions
           </Menu.Item>
+        </SubMenu>
+      </Menu>
+
+      <Menu
+        multiple={true}
+        theme="dark"
+        defaultOpenKeys={['view']}
+        onSelect={m1DisplayMenuOptionSelected}
+        onDeselect={m1DisplayMenuOptionDeselected}
+        mode="inline">
+        <SubMenu key="view" title="M1 Display Type">
+          <Menu.Item key="whMaxValues">
+            WH Max Values
+          </Menu.Item>
+          <Menu.Item key="tiptiltDisplay">
+             M1 Tip/Tilts
+           </Menu.Item>
         </SubMenu>
       </Menu>
 

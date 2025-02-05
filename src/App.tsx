@@ -3,6 +3,7 @@ import './App.css'
 import {Topbar} from './components/Topbar'
 import {Mirror} from './components/Mirror'
 import {SegmentView} from './components/SegmentView'
+import {SingleSegmentView} from './components/SingleSegmentView'
 import {Layout} from "antd"
 import 'antd/dist/antd.css'
 import {Sidebar} from "./components/Sidebar";
@@ -28,6 +29,11 @@ const App = (): JSX.Element => {
   const [edgeDisplay, setEdgeDisplay] = useState<number>(0)
   const [showVectorFieldPlot, setShowVectorFieldPlot] = useState<boolean>(false)
   const [showSurfacePlot, setShowSurfacePlot] = useState<boolean>(false)
+  const [showWhCircles, setShowWhCircles] = useState<boolean>(false)
+  const [showBySegmentMaxWhValue, setShowBySegmentMaxWhValue] = useState<boolean>(false)
+  const [showSegmentTipTilts, setShowSegmentTipTilts] = useState<boolean>(false)
+
+
 
   const appContextValues: AppContextState = {
 
@@ -50,7 +56,13 @@ const App = (): JSX.Element => {
     showVectorFieldPlot,
     setShowVectorFieldPlot,
     showSurfacePlot,
-    setShowSurfacePlot
+    setShowSurfacePlot,
+    showWhCircles,
+    setShowWhCircles,
+    showBySegmentMaxWhValue,
+    setShowBySegmentMaxWhValue,
+    showSegmentTipTilts,
+    setShowSegmentTipTilts
   }
 
 
@@ -66,7 +78,10 @@ const App = (): JSX.Element => {
                 <Mirror/>
               )}
               {display==2 && (
-                <SegmentView/>
+                 <SegmentView/>
+               )}
+             {display==3 && (
+                <SingleSegmentView/>
               )}
             </Content>
           </Layout>

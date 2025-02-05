@@ -5,6 +5,7 @@ export class Config {
   // Radius of a single segment
   static segmentRadiusMirrorDisplay = 12
   static segmentRadiusSegmentDisplay = 64
+  static segmentRadiusSingleSegmentDisplay = 256
 
   static mirrorDiameter = 23 * Config.segmentRadiusMirrorDisplay * 2
 
@@ -33,9 +34,17 @@ export class Config {
     })
 
   static segmentDisplayPoints = [...Array(6).keys()]
+     .map((i) => {
+       const px = Config.segmentRadiusSegmentDisplay * Math.cos((i * 60 * Math.PI) / 180.0)
+       const py = Config.segmentRadiusSegmentDisplay * Math.sin((i * 60 * Math.PI) / 180.0)
+       return `${px},${py}`
+     })
+     .join(' ')
+
+ static singleSegmentDisplayPoints = [...Array(6).keys()]
     .map((i) => {
-      const px = Config.segmentRadiusSegmentDisplay * Math.cos((i * 60 * Math.PI) / 180.0)
-      const py = Config.segmentRadiusSegmentDisplay * Math.sin((i * 60 * Math.PI) / 180.0)
+      const px = Config.segmentRadiusSingleSegmentDisplay * Math.cos((i * 60 * Math.PI) / 180.0)
+      const py = Config.segmentRadiusSingleSegmentDisplay * Math.sin((i * 60 * Math.PI) / 180.0)
       return `${px},${py}`
     })
     .join(' ')
@@ -1818,5 +1827,36 @@ export class Config {
 
   ]
 
- 
+static wh1Positions = [
+     {whNum: 1, posX: 0.5, posY: 0.404},
+     {whNum: 2, posX: 0.622, posY: 0.686},
+     {whNum: 3, posX: 0.378, posY: 0.686},
+     {whNum: 4, posX: 0.872, posY: 0.579},
+     {whNum: 5, posX: 0.712, posY: 0.335},
+     {whNum: 6, posX: 0.128, posY: 0.579},
+     {whNum: 7, posX: 0.288, posY: 0.335},
+]
+
+static wh2Positions = [
+    {whNum: 1, posX: -0.599, posY: 0.231},
+    {whNum: 2, posX: -0.905, posY: 0.196},
+    {whNum: 3, posX: -0.783, posY: -0.015},
+    {whNum: 4, posX: -0.937, posY: 0.466},
+    {whNum: 5, posX: -0.646, posY: 0.449},
+    {whNum: 6, posX: -0.565, posY: -0.179},
+    {whNum: 7, posX: -0.434, posY: 0.082},
+ ]
+
+static wh3Positions = [
+    {whNum: 1, posX: 0.599, posY: 0.231},
+    {whNum: 2, posX: 0.783, posY: -0.015},
+    {whNum: 3, posX: 0.905, posY: 0.196},
+    {whNum: 4, posX: 0.565, posY: -0.179},
+    {whNum: 5, posX: 0.434, posY: 0.082},
+    {whNum: 6, posX: 0.937, posY: 0.466},
+    {whNum: 7, posX: 0.646, posY: 0.449},
+ ]
+
+
+
 }

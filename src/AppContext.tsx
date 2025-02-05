@@ -37,6 +37,17 @@ export type AppContextState = {
   setShowVectorFieldPlot: (value: boolean) => void
   showSurfacePlot: boolean
   setShowSurfacePlot: (value: boolean) => void
+  showWhCircles: boolean
+  setShowWhCircles: (value: boolean) => void
+
+  // M1 segments displayType
+  showBySegmentMaxWhValue: boolean
+  setShowBySegmentMaxWhValue: (value: boolean) => void
+  showSegmentTipTilts: boolean
+  setShowSegmentTipTilts: (value: boolean) => void
+
+
+
 }
 
 const appContextDefaultValue: AppContextState = {
@@ -65,7 +76,15 @@ const appContextDefaultValue: AppContextState = {
   showVectorFieldPlot: false,
   setShowVectorFieldPlot: (_: boolean) => {},
   showSurfacePlot: false,
-  setShowSurfacePlot: (_: boolean) => {}
+  setShowSurfacePlot: (_: boolean) => {},
+  showWhCircles: false,
+  setShowWhCircles: (_: boolean) => {},
+
+  showBySegmentMaxWhValue: false,
+  setShowBySegmentMaxWhValue: (_: boolean) => {},
+  showSegmentTipTilts: false,
+  setShowSegmentTipTilts: (_: boolean) => {}
+
 
 }
 

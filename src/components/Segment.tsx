@@ -24,9 +24,10 @@ export const Segment = ({
                           x,
                           y
                         }: SegmentProps): JSX.Element => {
-  const {caseNum, showSegmentIds, viewSize, setViewSize, setViewX, setViewY, viewX, viewY, edgeDisplay, showSectorColors} = useAppContext()
+  const {caseNum, showSegmentIds, viewSize, setViewSize, setViewX, setViewY, viewX, viewY, edgeDisplay, showSectorColors,
+    showBySegmentMaxWhValue, showSegmentTipTilts} = useAppContext()
+
   const sector = pos.charAt(0)
-  const fill = getFillColor()
   const labelXOffset = pos.length == 2 ? -4 : -6
   const cellNum = Number(pos.substr(1)) + (82 * (pos.charCodeAt(0) - 65))
   const sectorNum = pos.charCodeAt(0) - 65
@@ -34,12 +35,49 @@ export const Segment = ({
   const label2 = pos
   const fontSize = 6
 
+  const angle = 90;  // this will be passed in
+  const color1 = "red"  // this will be passed in
+  const color2 = "blue"  // this will be passed in
+  const gradientId = "hexGradient" + cellNum;
+
+  // Convert angle to x1, y1, x2, y2 for linearGradient
+  // angle needs to be de-rotated from the rotated sector
+  const derotateAngleDeg = angle - Config.sectorAngle(sector)
+  const derotateAngleRad = derotateAngleDeg * Math.PI/180;
+  const x1 = 0.5 + 0.5 * Math.cos(derotateAngleRad);
+  const y1 = 0.5 + 0.5 * Math.sin(derotateAngleRad);
+  const x2 = 0.5 - 0.5 * Math.cos(derotateAngleRad);
+  const y2 = 0.5 - 0.5 * Math.sin(derotateAngleRad);
+
+
+  const getRandomWhColor = () => {
+    const grey = Math.floor(Math.random() * 180) + 75;
+    if (grey < 80) return 'red';
+    if (grey < 100) return 'orange'
+    return `rgb(${grey}, ${grey}, ${grey})`;
+  };
+
+  const getTipTiltGradient = () => {
+    return "url(#hexGradient" + cellNum + ")";
+  };
+
+  const whColor = getRandomWhColor();
+
+  const tipTiltGradient = getTipTiltGradient()
+
+  const fill = getFillColor()
+
   const [open, setOpen] = useState<boolean>(false)
 
 
-
   function getFillColor(): string | undefined {
-    let c = Config.sectorEmptyColors.get(sector)
+    if (showBySegmentMaxWhValue) {
+       return whColor;
+     }
+     if (showSegmentTipTilts) {
+        return tipTiltGradient;
+      }
+      let c = Config.sectorEmptyColors.get(sector)
     return (c && showSectorColors) ? c : Config.undefinedColor
   }
 
@@ -129,7 +167,7 @@ export const Segment = ({
       })
   }
 
-
+//
 
 
   return (
@@ -137,10 +175,23 @@ export const Segment = ({
       id={pos}
       key={pos}
       className={'segment'}
-      fill={fill}
+
       transform={`translate(${x}, ${y})`}>
+      <defs>
+        <linearGradient id={gradientId}
+          x1={x1}
+          y1={y1}
+          x2={x2}
+          y2={y2}
+        >
+        <stop offset="0%" stopColor={color1} />
+        <stop offset="100%" stopColor={color2} />
+        </linearGradient>
+      </defs>
       <title>{toolTip()}</title>
+
       <polygon
+        fill={fill}
         stroke='white'
         strokeWidth='1.0'
         onClick={mousePressed}
