@@ -3,6 +3,7 @@ import {Config} from './Config'
 import {useAppContext} from "../AppContext"
 import {EdgeVector} from './EdgeVector'
 import {EdgeTriangle} from './EdgeTriangle'
+import {TipTiltData} from './TipTiltData'
 
 type SegmentProps = {
   id?: string
@@ -25,7 +26,8 @@ export const Segment = ({
                           y
                         }: SegmentProps): JSX.Element => {
   const {caseNum, showSegmentIds, viewSize, setViewSize, setViewX, setViewY, viewX, viewY, edgeDisplay, showSectorColors,
-    showBySegmentMaxWhValue, showSegmentTipTilts} = useAppContext()
+    showBySegmentMaxWhValue, showSegmentTipTiltsFM, showSegmentTipTiltPistonsFM, showSegmentPistonsFM,
+    showSegmentTipTiltsRand, showSegmentArrows} = useAppContext()
 
   const sector = pos.charAt(0)
   const labelXOffset = pos.length == 2 ? -4 : -6
@@ -35,20 +37,77 @@ export const Segment = ({
   const label2 = pos
   const fontSize = 6
 
-  const angle = 90;  // this will be passed in
-  const color1 = "red"  // this will be passed in
-  const color2 = "blue"  // this will be passed in
+  // Tip/Tilt values
+  let segmentTtMax, segmentTtMin, segmentTtAngle;
+  if (showSegmentTipTiltsFM) {
+     segmentTtMax = TipTiltData.segmentTipTiltFM[cellNum-1].maxValue
+     segmentTtMin = TipTiltData.segmentTipTiltFM[cellNum-1].minValue
+     segmentTtAngle = TipTiltData.segmentTipTiltFM[cellNum-1].angle
+  } else if (showSegmentTipTiltPistonsFM) {
+     segmentTtMax = TipTiltData.segmentTipTiltPistonFM[cellNum-1].maxValue
+     segmentTtMin = TipTiltData.segmentTipTiltPistonFM[cellNum-1].minValue
+     segmentTtAngle = TipTiltData.segmentTipTiltPistonFM[cellNum-1].angle
+  } else if (showSegmentTipTiltsRand) {
+      segmentTtMax = TipTiltData.segmentTipTiltRand[cellNum-1].maxValue
+      segmentTtMin = TipTiltData.segmentTipTiltRand[cellNum-1].minValue
+      segmentTtAngle = TipTiltData.segmentTipTiltRand[cellNum-1].angle
+   } else {
+      // piston only
+      segmentTtMax = TipTiltData.segmentPistonFM[cellNum-1].maxValue
+      segmentTtMin = TipTiltData.segmentPistonFM[cellNum-1].minValue
+      segmentTtAngle = TipTiltData.segmentPistonFM[cellNum-1].angle
+  }
+
+  const m1TtMax =  TipTiltData.m1TipTiltData.maxValue
+  const m1TtMin =  TipTiltData.m1TipTiltData.minValue
+
+  // expansion of length of gradient vector
+
+
+  //const angle = 90;  // this will be passed in
   const gradientId = "hexGradient" + cellNum;
 
   // Convert angle to x1, y1, x2, y2 for linearGradient
   // angle needs to be de-rotated from the rotated sector
-  const derotateAngleDeg = angle - Config.sectorAngle(sector)
+  const derotateAngleDeg = segmentTtAngle - Config.sectorAngle(sector)
   const derotateAngleRad = derotateAngleDeg * Math.PI/180;
-  const x1 = 0.5 + 0.5 * Math.cos(derotateAngleRad);
-  const y1 = 0.5 + 0.5 * Math.sin(derotateAngleRad);
-  const x2 = 0.5 - 0.5 * Math.cos(derotateAngleRad);
-  const y2 = 0.5 - 0.5 * Math.sin(derotateAngleRad);
+  const x1d = 0.5 + 0.5 * Math.cos(derotateAngleRad);
+  const y1d = 0.5 + 0.5 * Math.sin(derotateAngleRad);
+  const x2d = 0.5 - 0.5 * Math.cos(derotateAngleRad);
+  const y2d = 0.5 - 0.5 * Math.sin(derotateAngleRad);
 
+// to use only a fraction of the gradient: example 25% to 75% we scale the entire vector and translate it
+
+// equation from segmentTT max/min and Mirror TT max/min to gradientScaleup and minPercent
+  const scale = (segmentTtMax - segmentTtMin)/(m1TtMax - m1TtMin);
+  const gradientScaleup = 1.0/scale;
+  const minPercent = segmentTtMin/(m1TtMax - m1TtMin);
+
+
+
+// so if we have two points (x1, y1), (x2, y2)
+// e.g. we want to scale the line up to 2x its current size, we extend x2, y2 to be 2x the current distance from x1,y1
+  const x2u = ((x2d-x1d) * gradientScaleup) + x1d
+  const y2u = ((y2d-y1d) * gradientScaleup) + y1d
+  const x1u = x1d
+  const y1u = y1d
+
+ // and then transform the entire line to land at the 25% (min percent) starting point
+  const xtranslate = (x2u - x1u) * minPercent
+  const ytranslate = (y2u - y1u) * minPercent
+  const x1 = x1u - xtranslate
+  const y1 = y1u - ytranslate
+  const x2 = x2u - xtranslate
+  const y2 = y2u - ytranslate
+
+  // line display - need to change the starting point if the ending point is smaller
+  let lineX1, lineX2, lineWidth, pointsString;
+  if (showSegmentArrows) {
+    lineX1 = -scale * 10.0
+    lineX2 = scale * 5.0
+    lineWidth = scale * 3.0
+    pointsString = scale * 10 + ",0 " + scale * 5 + "," + (scale * -5) + " " + scale * 5 + "," + (scale * 5)
+  }
 
   const getRandomWhColor = () => {
     const grey = Math.floor(Math.random() * 180) + 75;
@@ -57,11 +116,42 @@ export const Segment = ({
     return `rgb(${grey}, ${grey}, ${grey})`;
   };
 
+
+const interpolateColor = (color1, color2, factor) => {
+  const result = color1.map((c, i) => Math.round(c + factor * (color2[i] - c)));
+  return `rgb(${result[0]}, ${result[1]}, ${result[2]})`;
+};
+
+const getGradientColor = (percent, gradient) => {
+  if (percent <= 0) return `rgb(${gradient[0].join(",")})`;
+  if (percent >= 1) return `rgb(${gradient[gradient.length - 1].join(",")})`;
+
+  const scaledPercent = percent * (gradient.length - 1);
+  const index = Math.floor(scaledPercent);
+  const factor = scaledPercent - index;
+
+  return interpolateColor(gradient[index], gradient[index + 1], factor);
+};
+
+const gradient = [
+  [13, 8, 135],   // Blue
+  [106, 0, 168], // Cyan
+  [177, 42, 144],   // Green
+  [255, 100, 98],   // Red
+  [251, 166, 54], // Yellow
+];
+
+   const getPistonColor = () => {
+      return getGradientColor(segmentTtMin/100.0, gradient);
+    };
+
+
   const getTipTiltGradient = () => {
     return "url(#hexGradient" + cellNum + ")";
   };
 
   const whColor = getRandomWhColor();
+  const pistonColor = getPistonColor();
 
   const tipTiltGradient = getTipTiltGradient()
 
@@ -74,7 +164,10 @@ export const Segment = ({
     if (showBySegmentMaxWhValue) {
        return whColor;
      }
-     if (showSegmentTipTilts) {
+     if (showSegmentPistonsFM) {
+        return pistonColor;
+     }
+     else if (showSegmentTipTiltsFM || showSegmentTipTiltPistonsFM || showSegmentTipTiltsRand) {
         return tipTiltGradient;
       }
       let c = Config.sectorEmptyColors.get(sector)
@@ -184,8 +277,11 @@ export const Segment = ({
           x2={x2}
           y2={y2}
         >
-        <stop offset="0%" stopColor={color1} />
-        <stop offset="100%" stopColor={color2} />
+             <stop offset="0%" stopColor="#0d0887" />
+             <stop offset="25%" stopColor="#6a00a8" />
+             <stop offset="50%" stopColor="#b12a90" />
+             <stop offset="75%" stopColor="#e16462" />
+             <stop offset="100%" stopColor="#fca636" />
         </linearGradient>
       </defs>
       <title>{toolTip()}</title>
@@ -193,7 +289,7 @@ export const Segment = ({
       <polygon
         fill={fill}
         stroke='white'
-        strokeWidth='1.0'
+        strokeWidth='0.1'
         onClick={mousePressed}
         points={Config.segmentPoints}
       />
@@ -211,6 +307,11 @@ export const Segment = ({
         {label}
       </text>
 
+
+      <line x1={lineX1} y1="0" x2={lineX2} y2="0" stroke="black" stroke-width={lineWidth} transform={`rotate(${-Config.sectorAngle(sector) + segmentTtAngle + 180})`}/>
+      <polygon points={pointsString} fill="black" transform={`rotate(${-Config.sectorAngle(sector) + segmentTtAngle + 180})`}/>
+
+// it is only the 10, 5 and 5 that need to change
 
     </g>
   )

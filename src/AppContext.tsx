@@ -43,10 +43,17 @@ export type AppContextState = {
   // M1 segments displayType
   showBySegmentMaxWhValue: boolean
   setShowBySegmentMaxWhValue: (value: boolean) => void
-  showSegmentTipTilts: boolean
-  setShowSegmentTipTilts: (value: boolean) => void
 
-
+  showSegmentTipTiltsFM: boolean
+  setShowSegmentTipTiltsFM: (value: boolean) => void
+  showSegmentTipTiltsRand: boolean
+  setShowSegmentTipTiltsRand: (value: boolean) => void
+  showSegmentTipTiltPistonsFM: boolean
+  setShowSegmentTipTiltPistonsFM: (value: boolean) => void
+  showSegmentPistonsFM: boolean
+  setShowSegmentPistonsFM: (value: boolean) => void
+  showSegmentArrows: boolean
+  setShowSegmentArrows: (value: boolean) => void
 
 }
 
@@ -82,8 +89,16 @@ const appContextDefaultValue: AppContextState = {
 
   showBySegmentMaxWhValue: false,
   setShowBySegmentMaxWhValue: (_: boolean) => {},
-  showSegmentTipTilts: false,
-  setShowSegmentTipTilts: (_: boolean) => {}
+  showSegmentTipTiltsFM: false,
+  setShowSegmentTipTiltsFM: (_: boolean) => {},
+  showSegmentTipTiltsRand: false,
+  setShowSegmentTipTiltsRand: (_: boolean) => {},
+  showSegmentTipTiltPistonsFM: false,
+  setShowSegmentTipTiltPistonsFM: (_: boolean) => {},
+  showSegmentPistonsFM: false,
+  setShowSegmentPistonsFM: (_: boolean) => {},
+  showSegmentArrows: false,
+  setShowSegmentArrows: (_: boolean) => {}
 
 
 }

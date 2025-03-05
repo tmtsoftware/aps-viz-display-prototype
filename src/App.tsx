@@ -31,7 +31,11 @@ const App = (): JSX.Element => {
   const [showSurfacePlot, setShowSurfacePlot] = useState<boolean>(false)
   const [showWhCircles, setShowWhCircles] = useState<boolean>(false)
   const [showBySegmentMaxWhValue, setShowBySegmentMaxWhValue] = useState<boolean>(false)
-  const [showSegmentTipTilts, setShowSegmentTipTilts] = useState<boolean>(false)
+  const [showSegmentTipTiltsFM, setShowSegmentTipTiltsFM] = useState<boolean>(false)
+  const [showSegmentTipTiltsRand, setShowSegmentTipTiltsRand] = useState<boolean>(false)
+  const [showSegmentTipTiltPistonsFM, setShowSegmentTipTiltPistonsFM] = useState<boolean>(false)
+  const [showSegmentPistonsFM, setShowSegmentPistonsFM] = useState<boolean>(false)
+  const [showSegmentArrows, setShowSegmentArrows] = useState<boolean>(false)
 
 
 
@@ -61,10 +65,17 @@ const App = (): JSX.Element => {
     setShowWhCircles,
     showBySegmentMaxWhValue,
     setShowBySegmentMaxWhValue,
-    showSegmentTipTilts,
-    setShowSegmentTipTilts
+    showSegmentTipTiltsFM,
+    setShowSegmentTipTiltsFM,
+    showSegmentTipTiltsRand,
+    setShowSegmentTipTiltsRand,
+    showSegmentTipTiltPistonsFM,
+    setShowSegmentTipTiltPistonsFM,
+    showSegmentPistonsFM,
+    setShowSegmentPistonsFM,
+    showSegmentArrows,
+    setShowSegmentArrows
   }
-
 
 
     return (

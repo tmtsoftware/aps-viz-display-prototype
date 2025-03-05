@@ -16,9 +16,9 @@ export const Sidebar = (): JSX.Element => {
 
   const {setShowSegmentIds, setCaseNum, setViewSize, setViewX, setViewY, display, setDisplay, edgeDisplay, setEdgeDisplay,
   showVectorFieldPlot, setShowVectorFieldPlot, showSurfacePlot, setShowSurfacePlot, showWhCircles, setShowWhCircles, setShowSectorColors,
-  setShowBySegmentMaxWhValue, showBySegmentMaxWhValue, setShowSegmentTipTilts, showSegmentTipTilts} = useAppContext()
-
-
+  setShowBySegmentMaxWhValue, showBySegmentMaxWhValue, setShowSegmentTipTiltsFM, showSegmentTipTiltsFM, setShowSegmentTipTiltsRand,
+  showSegmentTipTiltsRand, setShowSegmentTipTiltPistonsFM, showSegmentTipTiltPistonsFM, setShowSegmentPistonsFM, showSegmentPistonsFM,
+  setShowSegmentArrows, showSegmentArrows} = useAppContext()
 
 
   function viewMenuOptionSelected(info: SelectInfo) {
@@ -33,6 +33,9 @@ export const Sidebar = (): JSX.Element => {
         break
       case 'hideSectorColors':
         setShowSectorColors(false)
+        break
+      case 'displayArrows':
+        setShowSegmentArrows(true)
         break
 
     }
@@ -50,6 +53,9 @@ export const Sidebar = (): JSX.Element => {
         setViewX(0)
         setViewY(0)
         setViewSize(Config.mirrorDiameter)
+      case 'displayArrows':
+        setShowSegmentArrows(false)
+        break
 
     }
   }
@@ -137,9 +143,38 @@ function m1DisplayMenuOptionSelected(info: SelectInfo) {
     switch (info.key) {
       case 'whMaxValues':
         setShowBySegmentMaxWhValue(true)
+        setShowSegmentTipTiltsFM(false)
+        setShowSegmentTipTiltPistonsFM(false)
+        setShowSegmentPistonsFM(false)
+        setShowSegmentTipTiltsRand(false)
         break
-      case 'tiptiltDisplay':
-        setShowSegmentTipTilts(true)
+      case 'tiptiltDisplayFM':
+        setShowBySegmentMaxWhValue(false)
+        setShowSegmentTipTiltsFM(true)
+        setShowSegmentTipTiltPistonsFM(false)
+        setShowSegmentPistonsFM(false)
+        setShowSegmentTipTiltsRand(false)
+        break
+      case 'tiptiltpistonDisplayFM':
+        setShowBySegmentMaxWhValue(false)
+        setShowSegmentTipTiltsFM(false)
+        setShowSegmentTipTiltPistonsFM(true)
+        setShowSegmentPistonsFM(false)
+        setShowSegmentTipTiltsRand(false)
+        break
+      case 'pistonDisplayFM':
+        setShowBySegmentMaxWhValue(false)
+        setShowSegmentTipTiltsFM(false)
+        setShowSegmentTipTiltPistonsFM(false)
+        setShowSegmentPistonsFM(true)
+        setShowSegmentTipTiltsRand(false)
+        break
+      case 'tiptiltDisplayRand':
+        setShowBySegmentMaxWhValue(false)
+        setShowSegmentTipTiltsFM(false)
+        setShowSegmentTipTiltPistonsFM(false)
+        setShowSegmentPistonsFM(false)
+        setShowSegmentTipTiltsRand(true)
         break
     }
   }
@@ -149,9 +184,18 @@ function m1DisplayMenuOptionSelected(info: SelectInfo) {
       case 'whMaxValues':
         setShowBySegmentMaxWhValue(false)
         break
-      case 'tiptiltDisplay':
-         setShowSegmentTipTilts(false)
-         break
+     case 'tiptiltDisplayFM':
+        setShowSegmentTipTiltsFM(false)
+        break
+      case 'tiptiltpistonDisplayFM':
+        setShowSegmentTipTiltPistonsFM(false)
+        break
+     case 'pistonDisplayFM':
+        setShowSegmentPistonsFM(false)
+        break
+      case 'tiptiltDisplayRand':
+        setShowSegmentTipTiltsRand(false)
+        break
     }
   }
 
@@ -168,6 +212,9 @@ function m1DisplayMenuOptionSelected(info: SelectInfo) {
         <SubMenu key="view" title="View">
           <Menu.Item key="hideSegmentIds">
             Hide Cell Numbers
+          </Menu.Item>
+          <Menu.Item key="displayArrows">
+            Display Arrows
           </Menu.Item>
           <Menu.Item key="hideSectorColors">
             Hide Sector Colors
@@ -265,7 +312,7 @@ function m1DisplayMenuOptionSelected(info: SelectInfo) {
       </Menu>
 
       <Menu
-        multiple={true}
+        multiple={false}
         theme="dark"
         defaultOpenKeys={['view']}
         onSelect={m1DisplayMenuOptionSelected}
@@ -275,11 +322,23 @@ function m1DisplayMenuOptionSelected(info: SelectInfo) {
           <Menu.Item key="whMaxValues">
             WH Max Values
           </Menu.Item>
-          <Menu.Item key="tiptiltDisplay">
-             M1 Tip/Tilts
+          <Menu.Item key="tiptiltDisplayFM">
+             M1 Tip/Tilts Focus Mode
            </Menu.Item>
+          <Menu.Item key="tiptiltpistonDisplayFM">
+              M1 Tip/Tilts/Pistons Focus Mode
+            </Menu.Item>
+          <Menu.Item key="pistonDisplayFM">
+              M1 Pistons Focus Mode
+            </Menu.Item>
+           <Menu.Item key="tiptiltDisplayRand">
+               M1 Tip/Tilts Random
+             </Menu.Item>
+
         </SubMenu>
       </Menu>
+
+
 
     </Sider>
 
